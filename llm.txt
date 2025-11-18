@@ -1,0 +1,19 @@
+curl http://10.63.129.228:3005/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMzA5MTIxNCIsImV4cCI6MTczMTk4MTc1MywiaWF0IjoxNzAwNDQ1NzUzLCJqdGkiOiIyZGU0NjZkZS0xODQ2LTRhMjUtYWIzNS0wZjljODRhZWEyYjUiLCJzY29wZSI6ImFwaSJ9.9._5qzlaTq0pVI4YHKmxRG5Dy8X_698kEHCnR_Z3fnBaQ" \
+  -d '{
+    "model": "427",
+    "messages": [
+      {
+        "role": "user",
+        "content": "你好，请介绍一下你自己。"
+      }
+    ],
+    "stream": false,
+    "enable_thinking": true,
+    "vision": false,
+    "function_calling": true,
+    "json_output": true,
+    "structured_output": true,
+    "multiple_system_messages": true
+  }'
