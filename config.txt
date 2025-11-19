@@ -1,0 +1,17 @@
+remote_qwen_32b:
+  client_type: "openai"
+  api_base: "https://api-inference.modelscope.cn/v1/"
+  api_key: "e83b43d5-18c7-490f-ac46-8ee782fb09c5" # 请替换为您的真实API Key
+  model_name: "Qwen/Qwen3-32B"
+  # 额外的请求体参数
+  extra_body:
+    enable_thinking: True
+  model_info:
+    model: "Qwen/Qwen3-32B"
+    max_context_length: 32768
+    vision: False
+    function_calling: True
+    json_output: True
+    family: "Qwen"
+    structured_output: True
+    multiple_system_messages: True
