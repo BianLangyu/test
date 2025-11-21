@@ -6,6 +6,8 @@ import json
 BASE_URL = "http://localhost:8080/api/dashboard"
 HEADERS = {
     "Content-Type": "application/json"
+    # 如果你的接口需要token认证，在这里添加
+    # "token": "your_auth_token_here"
 }
 
 # 用于统计测试结果
@@ -38,15 +40,22 @@ def run_test(test_name, endpoint, params=None):
                 data = response.json()
 
                 # 3. 检查业务响应码 (根据您的Result.success()定义)
-                # 通常，成功的响应会有一个code字段 (例如 0, 1, 或 200) 和一个 data 字段
-                # 这里我们假设成功的响应体中必须包含 'data' 字段
-                if 'data' in data:
+                #    通常成功的响应会有一个code字段，这里假设成功的code是1
+                if 'code' in data and data['code'] == 1:
                     print(f"✅ [通过] {test_name}")
-                    # 为了日志简洁，可以选择性打印部分返回数据
-                    # print(json.dumps(data['data'], indent=2, ensure_ascii=False))
+
+                    # --- 主要修改点在这里 ---
+                    # 打印完整的、格式化后的JSON响应
+                    print("   - 接口响应输出:")
+                    # 使用 json.dumps 进行格式化打印，方便阅读
+                    # indent=2 表示缩进2个空格
+                    # ensure_ascii=False 确保中文等非ASCII字符能正常显示
+                    print(json.dumps(data, indent=2, ensure_ascii=False))
+                    # -------------------------
+
                     test_results["passed"] += 1
                 else:
-                    print(f"❌ [失败] {test_name} - 响应JSON中缺少 'data' 字段。")
+                    print(f"❌ [失败] {test_name} - 业务响应码不正确或缺少'code'字段。")
                     print(f"   - 响应内容: {data}")
                     test_results["failed"] += 1
             except json.JSONDecodeError:
@@ -67,7 +76,7 @@ def run_test(test_name, endpoint, params=None):
     print("-" * 50)
 
 
-# --- 测试用例定义 ---
+# --- 测试用例定义 (保持不变) ---
 
 def test_get_vehicle_status_stats():
     run_test("获取车辆状态分层数据", "/stats/vehicle-status")
@@ -131,7 +140,7 @@ def test_get_ranking():
     run_test("获取动态排名数据", "/ranking", params=params)
 
 
-# --- 主程序入口 ---
+# --- 主程序入口 (保持不变) ---
 if __name__ == "__main__":
     print("========= 开始执行 Dashboard API 测试 =========")
 
