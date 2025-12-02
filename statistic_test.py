@@ -5,7 +5,7 @@ from tabulate import tabulate
 import sys
 
 # ================= 配置区域 =================
-BASE_URL = "http://localhost:8080/statistics"
+BASE_URL = "http://localhost:8080/api/statistics"
 
 # 测试参数 (请根据数据库实际情况修改)
 CONFIG = {
